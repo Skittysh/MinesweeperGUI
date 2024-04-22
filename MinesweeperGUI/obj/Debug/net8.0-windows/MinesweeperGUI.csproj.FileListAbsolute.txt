@@ -20,3 +20,4 @@ C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-wind
 C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\ref\MinesweeperGUI.dll
 C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\GamePage.g.cs
 C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\GamePage.baml
+C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\MinesweeperGUI.sourcelink.json
