@@ -1,0 +1,17 @@
+﻿<Window x:Class="MinesweeperGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MinesweeperGUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Frame x:Name="mainFrame" />
+        <TextBox Name="inputField" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Button x:Name="drawButton" Content="Draw Squares" Width="100" Height="30" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Margin="0,40,0,0" Click="DrawButton_Click" />
+
+
+    </Grid>
+</Window>
