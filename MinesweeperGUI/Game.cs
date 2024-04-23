@@ -6,9 +6,10 @@ namespace MinesweeperGUI
     {
         public Board board;
 
+        public int MinesUntilWin = 0;
         public bool EmptyCell(int x, int y)
         {
-            if (board.isRevealed(x, y) && (board.GetMinesAround(x, y) == 0))
+            if (board.isRevealed(x, y) )
                 return true;
             return false;
         }

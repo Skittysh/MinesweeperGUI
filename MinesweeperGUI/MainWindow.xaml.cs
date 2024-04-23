@@ -7,15 +7,17 @@ namespace MinesweeperGUI;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private void DrawButton_Click(object sender, RoutedEventArgs e)
-    {
-        int n = int.Parse(inputField.Text);
+    private void StartGameButton_Click(object sender, RoutedEventArgs e)
+{
+    int size = int.Parse(sizeInputField.Text);
+    int mines = int.Parse(minesInputField.Text);
 
-        GamePage gamePage = new GamePage(n);
-        drawButton.Visibility = Visibility.Collapsed;
-        inputField.Visibility = Visibility.Collapsed;
-        mainFrame.Navigate(gamePage);
-    }
+    GamePage gamePage = new GamePage(size, mines);
+    startGameButton.Visibility = Visibility.Collapsed;
+    sizeInputField.Visibility = Visibility.Collapsed;
+    minesInputField.Visibility = Visibility.Collapsed;
+    mainFrame.Navigate(gamePage);
+}
 
     public MainWindow()
     {

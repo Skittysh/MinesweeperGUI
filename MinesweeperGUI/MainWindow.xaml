@@ -5,13 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MinesweeperGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Frame x:Name="mainFrame" />
-        <TextBox Name="inputField" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <Button x:Name="drawButton" Content="Draw Squares" Width="100" Height="30" HorizontalAlignment="Left"
-                VerticalAlignment="Top" Margin="0,40,0,0" Click="DrawButton_Click" />
+        Title="MainWindow" Height="768" Width="1366">
+    <Grid Background="Gray">
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" />
 
+        <Label Content="Board Size:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+        <TextBox Name="sizeInputField" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" />
+
+        <Label Content="Amount of Mines:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,70,0,0"/>
+        <TextBox Name="minesInputField" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,95,0,0" />
+
+        <Button x:Name="startGameButton" Content="Start Game" Width="160" Height="30" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Margin="0,135,0,0" Click="StartGameButton_Click"
+                Background="DarkBlue" Foreground="White" BorderBrush="White" BorderThickness="2"
+                FontSize="14" FontWeight="Bold" Padding="10,5"
+                Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
     </Grid>
 </Window>

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -9,12 +10,12 @@ namespace MinesweeperGUI
     {
         private Game game;
 
-        public GamePage(int n)
+        public GamePage(int n, int m)
         {
-            game = new Game(n, n);
+            game = new Game(n, m);
+            game.MinesUntilWin = n * n - m;
             InitializeComponent();
             DrawSquares(n);
-            Console.WriteLine("debby");
         }
 
 
@@ -23,7 +24,6 @@ namespace MinesweeperGUI
             int squareSize = 50;
             int spacing = 10;
             int totalWidth = n * squareSize + (n - 1) * spacing;
-            Console.WriteLine("debbysqre");
             int startX = (int)((myCanvas.Width - totalWidth) / 2);
             int startY = (int)((myCanvas.Height - totalWidth) / 2);
 
@@ -39,7 +39,6 @@ namespace MinesweeperGUI
                     var textBlock = new TextBlock
                     {
                         Uid = i + " " + j,
-                        Text = (i * n + j + 1).ToString(),
                         Foreground = Brushes.White,
                         FontSize = 16,
                         FontWeight = FontWeights.UltraBlack,
@@ -49,31 +48,60 @@ namespace MinesweeperGUI
 
                     rectangle.cell.MouseLeftButtonDown += (sender, e) =>
                     {
-                        Console.WriteLine("Click count: " + rectangle.x + " i" + rectangle.y);
-                        game.ExecuteReveal(rectangle.x, rectangle.y);
-                        ((Rectangle)sender).Fill = Brushes.Red;
-                        textBlock.Text = (game.getMines(rectangle.x, rectangle.y).ToString());
-                        if (game.EmptyCell(rectangle.x, rectangle.y))
+                        if (!game.board.isRevealed(rectangle.x, rectangle.y))
                         {
-                            for (int iterator_x = 0; iterator_x < n; iterator_x++)
+                            game.ExecuteReveal(rectangle.x, rectangle.y);
+                            ((Rectangle)sender).Fill = Brushes.OrangeRed;
+                            textBlock.Text = (game.getMines(rectangle.x, rectangle.y).ToString());
+                            if (game.EmptyCell(rectangle.x, rectangle.y))
                             {
-                                for (int iterator_y = 0; iterator_y < n; iterator_y++)
+                                for (int iterator_x = 0; iterator_x < n; iterator_x++)
                                 {
-                                    if (game.EmptyCell(iterator_x, iterator_y))
+                                    for (int iterator_y = 0; iterator_y < n; iterator_y++)
                                     {
-                                        var rectangle2 = myCanvas.Children.OfType<Rectangle>()
-                                            .First(r => r.Uid == iterator_x + " " + iterator_y);
-                                        rectangle2.Fill = Brushes.Yellow;
-                                        var textBlock2 = myCanvas.Children.OfType<TextBlock>()
-                                            .First(r => r.Uid == iterator_x + " " + iterator_y);
-                                        textBlock2.Text = "0";
+                                        if (game.EmptyCell(iterator_x, iterator_y) &&
+                                            (game.board.GetMinesAround(rectangle.x, rectangle.y) == 0))
+                                        {
+                                            game.MinesUntilWin--;
+                                            var rectangle2 = myCanvas.Children.OfType<Rectangle>()
+                                                .First(r => r.Uid == iterator_x + " " + iterator_y);
+                                            if (game.getMines(iterator_x, iterator_y) == 0)
+                                                rectangle2.Fill = Brushes.Orange;
+                                            if (game.getMines(iterator_x, iterator_y) != 0)
+                                                rectangle2.Fill = Brushes.OrangeRed;
+
+
+                                            var textBlock2 = myCanvas.Children.OfType<TextBlock>()
+                                                .First(r => r.Uid == iterator_x + " " + iterator_y);
+                                            textBlock2.Text = (game.getMines(iterator_x, iterator_y).ToString());
+                                        }
                                     }
                                 }
                             }
+
+                            game.MinesUntilWin--;
+                            Console.WriteLine(game.MinesUntilWin);
+                            if(game.MinesUntilWin == 0)
+                            {
+                                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                                mainWindow.mainFrame.Navigate(new WinBoard());
+                                mainWindow.mainFrame.NavigationService.RemoveBackEntry();
+                            }
+                        }
+
+                        if (game.board.hasMine(rectangle.x, rectangle.y))
+                        {
+                            var mainWindow = (MainWindow)Application.Current.MainWindow;
+                            mainWindow.mainFrame.Navigate(new LostBoard());
+                            mainWindow.mainFrame.NavigationService.RemoveBackEntry();
                         }
                     };
 
-                    rectangle.cell.MouseRightButtonDown += (sender, e) => { ((Rectangle)sender).Fill = Brushes.Green; };
+                    rectangle.cell.MouseRightButtonDown += (sender, e) =>
+                    {
+                        ((Rectangle)sender).Fill = Brushes.Green;
+                        
+                    };
 
                     Canvas.SetLeft(rectangle.cell, startX + j * (squareSize + spacing));
                     Canvas.SetTop(rectangle.cell, startY + i * (squareSize + spacing));

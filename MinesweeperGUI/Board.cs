@@ -35,22 +35,21 @@ namespace MinesweeperGUI
             Random szansa = new Random();
             for (int i = 0; i < minesCount; i++)
             {
-                int tempHeight = szansa.Next(0, height);
-                int tempWidth = szansa.Next(0, width);
-                while ((tempHeight == sillyX && tempWidth == sillyY) ||
-                       (tempHeight == (sillyX - 1) && tempWidth == sillyY) ||
-                       (tempHeight == (sillyX + 1) && tempWidth == sillyY) ||
-                       (tempHeight == (sillyX) && tempWidth == (sillyY - 1)) ||
-                       (tempHeight == (sillyX - 1) && tempWidth == (sillyY + 1)) ||
-                       (tempHeight == (sillyX + 1) && tempWidth == (sillyY + 1)) ||
-                       (tempHeight == (sillyX - 1) && tempWidth == (sillyY - 1)) ||
-                       (tempHeight == (sillyX + 1) && tempWidth == (sillyY - 1)) ||
-                       (tempHeight == (sillyX - 1) && tempWidth == (sillyY + 1)) ||
-                       hasMine(tempHeight, tempWidth))
+                int tempHeight, tempWidth;
+                do
                 {
                     tempHeight = szansa.Next(0, height);
                     tempWidth = szansa.Next(0, width);
-                }
+                } while ((tempHeight == sillyX && tempWidth == sillyY) ||
+                         (tempHeight == (sillyX - 1) && tempWidth == sillyY) ||
+                         (tempHeight == (sillyX + 1) && tempWidth == sillyY) ||
+                         (tempHeight == (sillyX) && tempWidth == (sillyY - 1)) ||
+                         (tempHeight == (sillyX - 1) && tempWidth == (sillyY + 1)) ||
+                         (tempHeight == (sillyX + 1) && tempWidth == (sillyY + 1)) ||
+                         (tempHeight == (sillyX - 1) && tempWidth == (sillyY - 1)) ||
+                         (tempHeight == (sillyX + 1) && tempWidth == (sillyY - 1)) ||
+                         (tempHeight == (sillyX - 1) && tempWidth == (sillyY + 1)) ||
+                         hasMine(tempHeight, tempWidth));
 
                 setMine(tempHeight, tempWidth);
             }
@@ -116,6 +115,10 @@ namespace MinesweeperGUI
                         RevealCell(x + 1, y);
                         RevealCell(x, y - 1);
                         RevealCell(x, y + 1);
+                        RevealCell(x - 1, y - 1);
+                        RevealCell(x + 1, y + 1);
+                        RevealCell(x - 1, y + 1);
+                        RevealCell(x + 1, y - 1);
                     }
                 }
             }

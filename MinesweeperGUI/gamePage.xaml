@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="GamePage" Height="450" Width="800">
     <Grid>
+        
         <Canvas x:Name="myCanvas" Width="800" Height="450" />
 
     </Grid>
