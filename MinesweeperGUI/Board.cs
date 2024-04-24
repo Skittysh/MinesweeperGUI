@@ -9,9 +9,18 @@ namespace MinesweeperGUI
         private int minesCount;
         private Cell[,] cells;
         private bool isFirstReveal;
+        private int fieldsToReveal;
+
+        // public int getFieldsToReveal()
+        // {
+        //     return fieldsToReveal;
+        // }
+        public int FieldsToReveal => fieldsToReveal;
+        
 
         public Board(int size, int minesCount)
         {
+            fieldsToReveal = size * size - minesCount;
             isFirstReveal = false;
             this.minesCount = minesCount;
             height = size;
@@ -44,6 +53,7 @@ namespace MinesweeperGUI
                          (tempHeight == (sillyX - 1) && tempWidth == sillyY) ||
                          (tempHeight == (sillyX + 1) && tempWidth == sillyY) ||
                          (tempHeight == (sillyX) && tempWidth == (sillyY - 1)) ||
+                         (tempHeight == (sillyX) && tempWidth == (sillyY + 1)) ||
                          (tempHeight == (sillyX - 1) && tempWidth == (sillyY + 1)) ||
                          (tempHeight == (sillyX + 1) && tempWidth == (sillyY + 1)) ||
                          (tempHeight == (sillyX - 1) && tempWidth == (sillyY - 1)) ||
@@ -94,9 +104,11 @@ namespace MinesweeperGUI
          }
          */
 
+        
 
         public void RevealCell(int x, int y)
         {
+            
             if (isFirstReveal == false)
             {
                 GenerateMines(x, y);
@@ -108,6 +120,7 @@ namespace MinesweeperGUI
                 if (!cells[x, y].hasMine && !cells[x, y].isRevealed)
                 {
                     cells[x, y].isRevealed = true;
+                    fieldsToReveal--;
                     int mineCounter = GetMinesAround(x, y);
                     if (mineCounter == 0)
                     {
