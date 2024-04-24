@@ -5,38 +5,28 @@ namespace MinesweeperGUI
     public class Game
     {
         public Board board;
-        
-        public bool EmptyCell(int x, int y)
+
+        public bool EmptyCell(int row, int col)
         {
-            if (board.isRevealed(x, y) )
+            if (board.isRevealed(row, col))
                 return true;
             return false;
         }
 
-        public int getMines(int x, int y)
+        public int getMines(int row, int col)
         {
-            return board.GetMinesAround(x, y);
+            return board.GetMinesAround(row, col);
         }
 
-        public Game(int size, int mines)
+        public Game(int mines, int width, int height)
         {
-            board = new Board(size, mines);
+            board = new Board(mines, width, height);
         }
 
-        public void ExecuteReveal(int x, int y)
+        public void ExecuteReveal(int row, int col)
         {
-            board.RevealCell(x, y);
-           // board.PrintBoard();
+            board.RevealCell(row, col);
+            // board.PrintBoard();
         }
-
-
-
-
-
-        
-
-
-        //click button w xaml.cs
-        
     }
 }

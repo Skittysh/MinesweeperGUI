@@ -8,5 +8,6 @@
       Title="OneSize" Height="450" Width="800">
     <Grid>
         <Label Content="You WON IN ONE MOVE?! " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="Green"/>
+        <Label Content="just kidding, make the board bigger than sommething by 3 or more mines than 0, silly" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" Foreground="Red"/>
     </Grid>
 </Page>

@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\skitt\\RiderProjects\\MinesweeperGUI\\MinesweeperGUI\\MinesweeperGUI.csproj",
+      "projectUniqueName": "C:\\Users\\skitt\\Downloads\\MinesweeperGUI\\MinesweeperGUI\\MinesweeperGUI\\MinesweeperGUI.csproj",
       "projectName": "MinesweeperGUI",
-      "projectPath": "C:\\Users\\skitt\\RiderProjects\\MinesweeperGUI\\MinesweeperGUI\\MinesweeperGUI.csproj",
+      "projectPath": "C:\\Users\\skitt\\Downloads\\MinesweeperGUI\\MinesweeperGUI\\MinesweeperGUI\\MinesweeperGUI.csproj",
       "packagesPath": "C:\\Users\\skitt\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\skitt\\RiderProjects\\MinesweeperGUI\\MinesweeperGUI\\obj\\",
+      "outputPath": "C:\\Users\\skitt\\Downloads\\MinesweeperGUI\\MinesweeperGUI\\MinesweeperGUI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\skitt\\AppData\\Roaming\\NuGet\\NuGet.Config"
