@@ -25,3 +25,5 @@ C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-wind
 C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\LostBoard.baml
 C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\WinBoard.g.cs
 C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\WinBoard.baml
+C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\OneSize.g.cs
+C:\Users\skitt\RiderProjects\MinesweeperGUI\MinesweeperGUI\obj\Debug\net8.0-windows\OneSize.baml

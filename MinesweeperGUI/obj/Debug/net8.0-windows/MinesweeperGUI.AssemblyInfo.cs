@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MinesweeperGUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7487797fad0abdb0ffe4a8ed8de15e54dd436379")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4ea546d53c53f2d54cbe9ea8aa46ce714c1e2c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("MinesweeperGUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MinesweeperGUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
