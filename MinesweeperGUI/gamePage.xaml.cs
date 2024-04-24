@@ -11,35 +11,36 @@ namespace MinesweeperGUI
     {
         private Game game;
 
-        public GamePage(int n, int m)
+        public GamePage(int mines, int width, int height)
         {
-            game = new Game(n, m);
+            game = new Game(mines, width, height);
             InitializeComponent();
-            DrawSquares(n);
+            DrawSquares(width, height);
         }
 
         private bool ifCanClick = true;
 
-        public void DrawSquares(int n)
+        public void DrawSquares(int height, int width)
         {
-            int squareSize = 50;
-            int spacing = 10;
-            int totalWidth = n * squareSize + (n - 1) * spacing;
-            int startX = (int)((myCanvas.Width - totalWidth) / 2);
-            int startY = (int)((myCanvas.Height - totalWidth) / 2);
+            int squareSize = 30;
+            int spacing = 5;
+           int totalHeight = height * squareSize + (height - 1) * spacing + 1;
+            int totalWidth = width * squareSize + (width - 1) * spacing + 1;
+            int startRow = (int)((myCanvas.Height - totalHeight) / 2);
+            int startCol = (int)((myCanvas.Width - totalWidth) / 2);
 
-            for (int i = 0; i < n; i++)
+            for (int row = 0; row < height; row++)
             {
-                for (int j = 0; j < n; j++)
+                for (int col = 0; col < width; col++)
                 {
                     var rectangle = new CellRectangle()
                     {
-                        x = i, y = j,
+                        x = row, y = col,
                     };
 
                     var textBlock = new TextBlock
                     {
-                        Uid = i + " " + j,
+                        Uid = row + " " + col,
                         Foreground = Brushes.White,
                         FontSize = 16,
                         FontWeight = FontWeights.UltraBlack,
@@ -58,24 +59,24 @@ namespace MinesweeperGUI
                                 textBlock.Text = (game.getMines(rectangle.x, rectangle.y).ToString());
                                 if (game.EmptyCell(rectangle.x, rectangle.y))
                                 {
-                                    for (int iterator_x = 0; iterator_x < n; iterator_x++)
+                                    for (int board_row = 0; board_row < height; board_row++)
                                     {
-                                        for (int iterator_y = 0; iterator_y < n; iterator_y++)
+                                        for (int board_col = 0; board_col < width; board_col++)
                                         {
-                                            if (game.EmptyCell(iterator_x, iterator_y) &&
+                                            if (game.EmptyCell(board_row, board_col) &&
                                                 (game.board.GetMinesAround(rectangle.x, rectangle.y) == 0))
                                             {
                                                 var rectangle2 = myCanvas.Children.OfType<Rectangle>()
-                                                    .First(r => r.Uid == iterator_x + " " + iterator_y);
-                                                if (game.getMines(iterator_x, iterator_y) == 0)
+                                                    .First(r => r.Uid == board_row + " " + board_col);
+                                                if (game.getMines(board_row, board_col) == 0)
                                                     rectangle2.Fill = Brushes.Orange;
-                                                if (game.getMines(iterator_x, iterator_y) != 0)
+                                                if (game.getMines(board_row, board_col) != 0)
                                                     rectangle2.Fill = Brushes.OrangeRed;
 
 
                                                 var textBlock2 = myCanvas.Children.OfType<TextBlock>()
-                                                    .First(r => r.Uid == iterator_x + " " + iterator_y);
-                                                textBlock2.Text = (game.getMines(iterator_x, iterator_y).ToString());
+                                                    .First(r => r.Uid == board_row + " " + board_col);
+                                                textBlock2.Text = (game.getMines(board_row, board_col).ToString());
                                             }
                                         }
                                     }
@@ -93,20 +94,20 @@ namespace MinesweeperGUI
                             if (game.board.hasMine(rectangle.x, rectangle.y) && ifCanClick)
                             {
                                 ifCanClick = false;
-                                for(int i = 0; i < n; i++)
+                                for(int board_row = 0; board_row < height; board_row++)
                                 {
-                                    for(int j = 0; j < n; j++)
+                                    for(int board_col = 0; board_col < width; board_col++)
                                     {
-                                        if (game.board.hasMine(i, j))
+                                        if (game.board.hasMine(board_row, board_col))
                                         {
                                             var rectangle2 = myCanvas.Children.OfType<Rectangle>()
-                                                .First(r => r.Uid == i + " " + j);
+                                                .First(r => r.Uid == board_row + " " + board_col);
                                             ImageBrush bombBrush = new ImageBrush();
                                             bombBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/bomber.png",
                                                 UriKind.RelativeOrAbsolute));
                                             rectangle2.Fill = bombBrush;
                                             var textBlock2 = myCanvas.Children.OfType<TextBlock>()
-                                                .First(r => r.Uid == i+ " " + j);
+                                                .First(r => r.Uid == board_row+ " " + board_col);
                                             textBlock2.Visibility = Visibility.Collapsed;
                                         }
                                     }
@@ -163,17 +164,17 @@ namespace MinesweeperGUI
                         }
                     };
 
-                    Canvas.SetLeft(rectangle.cell, startX + j * (squareSize + spacing));
-                    Canvas.SetTop(rectangle.cell, startY + i * (squareSize + spacing));
+                    Canvas.SetLeft(rectangle.cell, startRow + col * (squareSize + spacing));
+                    Canvas.SetTop(rectangle.cell, startCol + row * (squareSize + spacing));
 
-                    rectangle.cell.Uid = i + " " + j;
+                    rectangle.cell.Uid = row + " " + col;
                     Console.WriteLine(rectangle.cell.Uid);
                     myCanvas.Children.Add(rectangle.cell);
 
                     Canvas.SetLeft(textBlock,
-                        startX + j * (squareSize + spacing) + squareSize / 2 - textBlock.ActualWidth / 2);
+                        startRow + col * (squareSize + spacing) + squareSize / 2 - textBlock.ActualWidth / 2);
                     Canvas.SetTop(textBlock,
-                        startY + i * (squareSize + spacing) + squareSize / 2 - textBlock.ActualHeight / 2);
+                        startCol + row * (squareSize + spacing) + squareSize / 2 - textBlock.ActualHeight / 2);
 
                     myCanvas.Children.Add(textBlock);
                 }

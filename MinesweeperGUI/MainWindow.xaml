@@ -9,8 +9,11 @@
     <Grid Background="Gray">
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" />
 
-        <Label Name="Size" Content="Board Size:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-        <TextBox Name="sizeInputField" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" />
+        <Label Name="Height" Content="Board height:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+        <TextBox Name="heightInputField" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0" />
+        
+        <Label Name="Width" Content="Board width:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,5,0,0"/>
+        <TextBox Name="widthInputField" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,30,0,0" />
 
         <Label Name="Mines" Content="Amount of Mines:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,70,0,0"/>
         <TextBox Name="minesInputField" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,95,0,0" />

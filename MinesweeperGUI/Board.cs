@@ -10,170 +10,117 @@ namespace MinesweeperGUI
         private Cell[,] cells;
         private bool isFirstReveal;
         private int fieldsToReveal;
-
-        // public int getFieldsToReveal()
-        // {
-        //     return fieldsToReveal;
-        // }
+        
         public int FieldsToReveal => fieldsToReveal;
         
 
-        public Board(int size, int minesCount)
+        public Board(int minesCount, int height, int width)
         {
-            fieldsToReveal = size * size - minesCount;
+            fieldsToReveal = height * width - minesCount;
             isFirstReveal = false;
             this.minesCount = minesCount;
-            height = size;
-            width = size;
-            cells = new Cell[size, size];
+            cells = new Cell[height, width];
+            this.height = height;
+            this.width = width;
 
-            for (int i = 0; i < height; i++)
+            for (int row = 0; row < height; row++)
             {
-                for (int j = 0; j < width; j++)
+                for (int col = 0; col < width; col++)
                 {
-                    cells[i, j] = new Cell();
+                    cells[row, col] = new Cell();
                 }
             }
-
-            Console.Write("", size);
-            Console.Write("", cells[1, 2].hasMine);
         }
 
-        private void GenerateMines(int sillyX, int sillyY)
+        private void GenerateMines(int row, int col)
         {
             Random szansa = new Random();
-            for (int i = 0; i < minesCount; i++)
+            for (int mines = 0; mines < minesCount; mines++)
             {
                 int tempHeight, tempWidth;
                 do
                 {
                     tempHeight = szansa.Next(0, height);
                     tempWidth = szansa.Next(0, width);
-                } while ((tempHeight == sillyX && tempWidth == sillyY) ||
-                         (tempHeight == (sillyX - 1) && tempWidth == sillyY) ||
-                         (tempHeight == (sillyX + 1) && tempWidth == sillyY) ||
-                         (tempHeight == (sillyX) && tempWidth == (sillyY - 1)) ||
-                         (tempHeight == (sillyX) && tempWidth == (sillyY + 1)) ||
-                         (tempHeight == (sillyX - 1) && tempWidth == (sillyY + 1)) ||
-                         (tempHeight == (sillyX + 1) && tempWidth == (sillyY + 1)) ||
-                         (tempHeight == (sillyX - 1) && tempWidth == (sillyY - 1)) ||
-                         (tempHeight == (sillyX + 1) && tempWidth == (sillyY - 1)) ||
-                         (tempHeight == (sillyX - 1) && tempWidth == (sillyY + 1)) ||
+                } while ((tempHeight == row && tempWidth == col) ||
+                         (tempHeight == (row - 1) && tempWidth == col) ||
+                         (tempHeight == (row + 1) && tempWidth == col) ||
+                         (tempHeight == (row) && tempWidth == (col - 1)) ||
+                         (tempHeight == (row) && tempWidth == (col + 1)) ||
+                         (tempHeight == (row - 1) && tempWidth == (col + 1)) ||
+                         (tempHeight == (row + 1) && tempWidth == (col + 1)) ||
+                         (tempHeight == (row - 1) && tempWidth == (col - 1)) ||
+                         (tempHeight == (row + 1) && tempWidth == (col - 1)) ||
                          hasMine(tempHeight, tempWidth));
 
                 setMine(tempHeight, tempWidth);
             }
         }
-
-        public bool gameWon = false;
-
-        public void allNonMinesRevealed()
-        {
-            int nonMinesRevealed = 0;
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    if (!cells[i, j].hasMine && cells[i, j].isRevealed)
-                    {
-                        nonMinesRevealed++;
-                    }
-                }
-            }
-
-            if (nonMinesRevealed == (width * height) - minesCount)
-            {
-                gameWon = true;
-            }
-        }
-
-        public void RevealAllCells()
-        {
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    cells[i, j].isRevealed = true;
-                }
-            }
-        }
-
-        /* private void BigReveal()
-         {
-
-         }
-         */
-
-        
-
-        public void RevealCell(int x, int y)
+        public void RevealCell(int row, int col)
         {
             
             if (isFirstReveal == false)
             {
-                GenerateMines(x, y);
+                GenerateMines(row, col);
                 isFirstReveal = true;
             }
 
-            if (x >= 0 && x < width && y >= 0 && y < height)
+            if (row >= 0 && row < height && col >= 0 && col < width)
             {
-                if (!cells[x, y].hasMine && !cells[x, y].isRevealed)
+                if (!cells[row, col].hasMine && !cells[row, col].isRevealed)
                 {
-                    cells[x, y].isRevealed = true;
+                    cells[row, col].isRevealed = true;
                     fieldsToReveal--;
-                    int mineCounter = GetMinesAround(x, y);
+                    int mineCounter = GetMinesAround(row, col);
                     if (mineCounter == 0)
                     {
-                        RevealCell(x - 1, y);
-                        RevealCell(x + 1, y);
-                        RevealCell(x, y - 1);
-                        RevealCell(x, y + 1);
-                        RevealCell(x - 1, y - 1);
-                        RevealCell(x + 1, y + 1);
-                        RevealCell(x - 1, y + 1);
-                        RevealCell(x + 1, y - 1);
+                        RevealCell(row - 1, col);
+                        RevealCell(row + 1, col);
+                        RevealCell(row, col - 1);
+                        RevealCell(row, col + 1);
+                        RevealCell(row - 1, col - 1);
+                        RevealCell(row + 1, col + 1);
+                        RevealCell(row - 1, col + 1);
+                        RevealCell(row + 1, col - 1);
                     }
                 }
             }
         }
 
-        public void ToggleFlag(int x, int y)
+        public void ToggleFlag(int row, int col)
         {
-            if (cells[x, y].hasFlag)
+            if (cells[row, col].hasFlag)
             {
-                cells[x, y].hasFlag = false;
+                cells[row, col].hasFlag = false;
             }
             else
-                cells[x, y].hasFlag = true;
+                cells[row, col].hasFlag = true;
         }
 
-        public bool hasFlag(int x, int y)
+        public bool hasFlag(int row, int col)
         {
-            return cells[x, y].hasFlag;
+            return cells[row, col].hasFlag;
         }
 
-        public bool hasMine(int x, int y)
+        public bool hasMine(int row, int col)
         {
-            return cells[x, y].hasMine;
+            return cells[row, col].hasMine;
         }
 
-        public bool isRevealed(int x, int y)
+        public bool isRevealed(int row, int col)
         {
-            return cells[x, y].isRevealed;
+            return cells[row, col].isRevealed;
         }
-
-        public bool clickedMine = false;
-
-        public int GetMinesAround(int x, int y)
+        public int GetMinesAround(int row, int col)
         {
             int minesNext = 0;
             for (int dx = -1; dx <= 1; dx++)
             {
                 for (int dy = -1; dy <= 1; dy++)
                 {
-                    int nx = x + dx;
-                    int ny = y + dy;
-                    if (nx >= 0 && nx < width && ny >= 0 && ny < height && hasMine(nx, ny))
+                    int nx = row + dx;
+                    int ny = col + dy;
+                    if (nx >= 0 && nx < height && ny >= 0 && ny < width && hasMine(nx, ny))
                     {
                         minesNext++;
                     }
@@ -183,38 +130,38 @@ namespace MinesweeperGUI
             return minesNext;
         }
 
-        public void PrintBoard()
-        {
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    if ((cells[i, j].isRevealed) && (cells[i, j].hasMine))
-                    {
-                        Console.Write("M  ");
-                    }
-                    else if ((cells[i, j].isRevealed) && (!cells[i, j].hasMine))
-                    {
-                        int minesNext = GetMinesAround(i, j);
-                        Console.Write(minesNext + "  ");
-                    }
-                    else if ((!cells[i, j].isRevealed) && (cells[i, j].hasFlag))
-                    {
-                        Console.Write("F  ");
-                    }
-                    else
-                    {
-                        Console.Write("X  ");
-                    }
-                }
+        // public void PrintBoard()
+        // {
+        //     for (int i = 0; i < width; i++)
+        //     {
+        //         for (int j = 0; j < height; j++)
+        //         {
+        //             if ((cells[i, j].isRevealed) && (cells[i, j].hasMine))
+        //             {
+        //                 Console.Write("M  ");
+        //             }
+        //             else if ((cells[i, j].isRevealed) && (!cells[i, j].hasMine))
+        //             {
+        //                 int minesNext = GetMinesAround(i, j);
+        //                 Console.Write(minesNext + "  ");
+        //             }
+        //             else if ((!cells[i, j].isRevealed) && (cells[i, j].hasFlag))
+        //             {
+        //                 Console.Write("F  ");
+        //             }
+        //             else
+        //             {
+        //                 Console.Write("X  ");
+        //             }
+        //         }
+        //
+        //         Console.WriteLine("");
+        //     }
+        // }
 
-                Console.WriteLine("");
-            }
-        }
-
-        private void setMine(int x, int y)
+        private void setMine(int row, int col)
         {
-            cells[x, y].hasMine = true;
+            cells[row, col].hasMine = true;
         }
     }
 
