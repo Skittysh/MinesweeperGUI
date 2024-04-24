@@ -10,8 +10,8 @@ public class CellRectangle
 
     public Rectangle cell = new Rectangle
     {
-        Width = 50,
-        Height = 50,
+        Width = 30,
+        Height = 30,
         Fill = Brushes.Blue 
     };
 }

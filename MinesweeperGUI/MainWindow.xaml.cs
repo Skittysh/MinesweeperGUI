@@ -24,9 +24,9 @@ public partial class MainWindow : Window
             return;
         }
         
-        if ( size > 20)
+        if ( size > 25)
         {
-            MessageBox.Show("Size must be less than 20");
+            MessageBox.Show("Size must be less than 25");
             return;
         }
     GamePage gamePage = new GamePage(size, mines);

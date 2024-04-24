@@ -20,12 +20,12 @@ namespace MinesweeperGUI
 
         public Board(int size, int minesCount)
         {
-            fieldsToReveal = size * size - minesCount;
+            fieldsToReveal = size * 5 - minesCount;
             isFirstReveal = false;
             this.minesCount = minesCount;
-            height = size;
+            height = 5;
             width = size;
-            cells = new Cell[size, size];
+            cells = new Cell[5, size];
 
             for (int i = 0; i < height; i++)
             {
@@ -183,34 +183,34 @@ namespace MinesweeperGUI
             return minesNext;
         }
 
-        public void PrintBoard()
-        {
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    if ((cells[i, j].isRevealed) && (cells[i, j].hasMine))
-                    {
-                        Console.Write("M  ");
-                    }
-                    else if ((cells[i, j].isRevealed) && (!cells[i, j].hasMine))
-                    {
-                        int minesNext = GetMinesAround(i, j);
-                        Console.Write(minesNext + "  ");
-                    }
-                    else if ((!cells[i, j].isRevealed) && (cells[i, j].hasFlag))
-                    {
-                        Console.Write("F  ");
-                    }
-                    else
-                    {
-                        Console.Write("X  ");
-                    }
-                }
-
-                Console.WriteLine("");
-            }
-        }
+        // public void PrintBoard()
+        // {
+        //     for (int i = 0; i < width; i++)
+        //     {
+        //         for (int j = 0; j < height; j++)
+        //         {
+        //             if ((cells[i, j].isRevealed) && (cells[i, j].hasMine))
+        //             {
+        //                 Console.Write("M  ");
+        //             }
+        //             else if ((cells[i, j].isRevealed) && (!cells[i, j].hasMine))
+        //             {
+        //                 int minesNext = GetMinesAround(i, j);
+        //                 Console.Write(minesNext + "  ");
+        //             }
+        //             else if ((!cells[i, j].isRevealed) && (cells[i, j].hasFlag))
+        //             {
+        //                 Console.Write("F  ");
+        //             }
+        //             else
+        //             {
+        //                 Console.Write("X  ");
+        //             }
+        //         }
+        //
+        //         Console.WriteLine("");
+        //     }
+        // }
 
         private void setMine(int x, int y)
         {

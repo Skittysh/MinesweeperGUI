@@ -11,26 +11,27 @@ namespace MinesweeperGUI
     {
         private Game game;
 
-        public GamePage(int n, int m)
+        public GamePage(int n, int d)
         {
-            game = new Game(n, m);
+            game = new Game(n, d);
             InitializeComponent();
-            DrawSquares(n);
+            int m = 5;
+            DrawSquares(n,m);
         }
 
         private bool ifCanClick = true;
 
-        public void DrawSquares(int n)
+        public void DrawSquares(int n, int m)
         {
-            int squareSize = 50;
-            int spacing = 10;
+            int squareSize = 30;
+            int spacing = 5;
             int totalWidth = n * squareSize + (n - 1) * spacing;
             int startX = (int)((myCanvas.Width - totalWidth) / 2);
             int startY = (int)((myCanvas.Height - totalWidth) / 2);
 
             for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < m; j++)
                 {
                     var rectangle = new CellRectangle()
                     {
@@ -60,7 +61,7 @@ namespace MinesweeperGUI
                                 {
                                     for (int iterator_x = 0; iterator_x < n; iterator_x++)
                                     {
-                                        for (int iterator_y = 0; iterator_y < n; iterator_y++)
+                                        for (int iterator_y = 0; iterator_y < m; iterator_y++)
                                         {
                                             if (game.EmptyCell(iterator_x, iterator_y) &&
                                                 (game.board.GetMinesAround(rectangle.x, rectangle.y) == 0))
@@ -95,7 +96,7 @@ namespace MinesweeperGUI
                                 ifCanClick = false;
                                 for(int i = 0; i < n; i++)
                                 {
-                                    for(int j = 0; j < n; j++)
+                                    for(int j = 0; j < m; j++)
                                     {
                                         if (game.board.hasMine(i, j))
                                         {
